@@ -7,14 +7,14 @@ import pyjokes
 from PIL import Image
 
 listener = sr.Recognizer()
-alexa = pyttsx3.init()
-voices = alexa.getProperty('voices')
-alexa.setProperty('voice', voices[1].id)
+siri = pyttsx3.init()
+voices = siri.getProperty('voices')
+siri.setProperty('voice', voices[1].id)
 
 
 def talk(text):
-    alexa.say(text)
-    alexa.runAndWait()
+    siri.say(text)
+    siri.runAndWait()
 print()
 print('Digital Udhbahboni Mela 2022')
 talk('Digital Udhbahboni Mela 2022')
@@ -31,15 +31,15 @@ def take_command():
         with sr.Microphone() as source:
             print('listening...')
             voice = listener.listen(source)
-            command = listener.recognize_google(voice)
+            command = listener.recognize_siri(voice)
             command = command.lower()
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
+            if 'siri' in command:
+                command = command.replace('siri', '')
     except:
         pass
     return command
 
-def run_alexa():
+def run_siri():
     command = take_command()
     if 'sheikh russel' in command and 'wikipedia' in command:
         look_for = command.replace('tell me about', '')
@@ -167,4 +167,4 @@ def run_alexa():
                 if 'no' in yn or 'NO' in yn or 'No' in yn:
                     break   
 while True:
-    run_alexa()
+    run_siri()
