@@ -3,7 +3,6 @@ import pyttsx3
 import datetime
 import pywhatkit
 import wikipedia
-import pyjokes
 from PIL import Image
 
 listener = sr.Recognizer()
@@ -580,5 +579,8 @@ def run_siri():
                 yn= input()
                 if 'no' in yn or 'No' in yn or 'NO' in yn:
                     break
+    else:
+        print('I can not found but I am search for you in google')
+        pywhatkit.search(command)
 while True:
     run_siri()
