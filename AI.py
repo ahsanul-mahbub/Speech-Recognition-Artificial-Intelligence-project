@@ -4,8 +4,8 @@ import datetime
 import pywhatkit
 import wikipedia
 from PIL import Image
-
-listener = sr.Recognizer()
+import webbrowser
+lis = sr.Recognizer()
 siri = pyttsx3.init()
 voices = siri.getProperty('voices')
 siri.setProperty('voice', voices[1].id)
@@ -14,6 +14,22 @@ siri.setProperty('voice', voices[1].id)
 def talk(text):
     siri.say(text)
     siri.runAndWait()
+def Wm():
+    time = int(datetime.datetime.now().hour)
+    if time >= 4 and time <12:
+        print('Siri : Good Noon Sir')
+        talk(' Good Noon Sir')
+    elif time >= 16 and time < 18:
+        print('Siri : Good Afternoon Sir')
+        talk('Good Afternoon Sir')
+    elif time >= 18 and time < 20:
+        print('Siri : Good Evening Sir')
+        talk('Good Evening Sir')
+    else:
+        print('Siri : Good Night Sir ')
+        talk('Good Night Sir')
+Wm()
+
 print()
 print('Digital Udhbahboni Mela 2022')
 talk('Digital Udhbahboni Mela 2022')
@@ -21,6 +37,7 @@ print()
 print('PRAN-RFL Public School Sheikh Russel ICT Lab')
 talk('PRAN-RFL Public School Sheikh Russel ICT Lab')
 print()
+
 im = Image.open(r"C:\Users\DOEL\Downloads\pran.jfif")
 im.show()
 
@@ -29,8 +46,8 @@ def take_command():
     try:
         with sr.Microphone() as source:
             print('listening...')
-            voice = listener.listen(source)
-            command = listener.recognize_siri(voice)
+            voice = lis.listen(source)
+            command = lis.recognize_google(voice)
             command = command.lower()
             if 'siri' in command:
                 command = command.replace('siri', '')
@@ -40,16 +57,24 @@ def take_command():
 
 def run_siri():
     command = take_command()
-    if 'sheikh russel' in command and 'wikipedia' in command:
-        look_for = command.replace('sheikh russel', '')
-        info = wikipedia.summary(look_for,4)
+    if 'time' in command:
+        time = datetime.datetime.now().strftime('%I:%M %p')
+        print(time)
+        talk('Current time is ' + time)
+    elif 'play' in command:
+        song = command.replace('play', '')
+        talk('playing ' + song)
+        pywhatkit.playonyt(song)
+    elif 'tell me about' in command:
+        look_for = command.replace('tell me about', '')
+        info = wikipedia.summary(look_for, 2)
         print(info)
         talk(info)
-    if  'quiz' in command :
+
+    elif  'quiz' in command:
         while True:
-            print('Question me I will answer your qustion if I know the question answer')
-            talk('Question me I will answer your qustion if I know the question answer')
-            qt = command
+            talk('Ask a question about sheikh russel')
+            qt = input('Ask a question about Sheikh Russel :')
             qt = qt.lower()
             
             if 'who' in qt:
@@ -165,31 +190,9 @@ def run_siri():
                 yn = input()
                 if 'no' in yn or 'NO' in yn or 'No' in yn:
                     break
-    elif 'time' in command:
-        time = datetime.datetime.now().strftime('%I:%M %p')
-        print(time)
-        talk('Current time is ' + time)
-    elif 'play' in command and 'song' in command:
-        song = command.replace('play', '')
-        talk('playing ' + song)
-        pywhatkit.playonyt(song)
-    elif 'play' in command and 'video' in command :
-        video = command.replace('play''video','')
-        pywhatkit.playonyt(video)
-    elif 'tell me about' in command or 'i want to know' in command:
-        look_for = command.replace('tell me about', '')
-        info = wikipedia.summary(look_for, 2)
-        print(info)
-        talk(info) 
-    elif 'pran rfl' in command :
-        if 'with out' not in command:
-            if 'wikipedia'in command:
-                look_for = command.replace('pran rfl', '')
-                info = wikipedia.summary(look_for, 2)
-                print(info)
-    elif 'pran-rfl' in command and 'with out wikipedia' in command:
+    if 'pran' in command:
         while True:
-            rfl = command
+            rfl = input("Ask a question about PRAN-RFL Public School : ")
             rfl = rfl.lower()
 
             if "founded" in rfl:
@@ -579,8 +582,19 @@ def run_siri():
                 yn= input()
                 if 'no' in yn or 'No' in yn or 'NO' in yn:
                     break
+    elif 'open youtube' in command:
+        webbrowser.open('youtube.com')
+    elif 'open google' in command:
+        webbrowser.open('google.com')
+    elif 'how are you' in command:
+        print('I am fine . Thank you . I think you are also fine')
+        talk('I am fine . Thank you . I think you are also fine')
+    elif 'you ' in command and 'beauiful' in command:
+        print('WOW,thanks.I think you are beautiful too')
     else:
-        print('I can not found but I am search for you in google')
+        talk('I did not get it but I am going to search it for you')
         pywhatkit.search(command)
+
+
 while True:
     run_siri()
