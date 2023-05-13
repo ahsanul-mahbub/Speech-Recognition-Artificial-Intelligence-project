@@ -185,8 +185,8 @@ def run_siri():
             
 
             if qt == 'exit':
-                print('Do you have any more qustion about this topic')
-                talk('Do you have any more qustion about this topic')
+                print('Do you want to qustion more about this topic')
+                talk('Do you want to qustion more about this topic')
                 yn = input()
                 if 'no' in yn or 'NO' in yn or 'No' in yn:
                     break
@@ -577,8 +577,8 @@ def run_siri():
                     print("There is no PRAN RFL public school Teachers in this district")
                     talk("There is no PRAN RFL public school Teachers in this district")
             elif "exit" in rfl:
-                print('Do you have any more qustion about this topic')
-                talk('Do you have any more qustion about this topic')
+                print('Do you want to qustion more about this topic')
+                talk('Do you want to qustion more about this topic')
                 yn= input()
                 if 'no' in yn or 'No' in yn or 'NO' in yn:
                     break
