@@ -71,7 +71,7 @@ def run_siri():
         print(info)
         talk(info)
 
-    elif  'quiz' in command and 'sheikh' in command:
+    elif  ('question' in command or 'know' in command)and 'sheikh' in command:
         while True:
             talk('Ask a question about sheikh russel')
             qt = input('Ask a question about Sheikh Russel :')
@@ -190,7 +190,7 @@ def run_siri():
                 yn = input()
                 if 'no' in yn or 'NO' in yn or 'No' in yn:
                     break
-    if 'pran' in command and 'quiz' in command:
+    if 'pran' in command and ('question' in command or 'know' in command):
         while True:
             rfl = input("Ask a question about PRAN-RFL Public School : ")
             rfl = rfl.lower()
